@@ -17,12 +17,15 @@ package pl.java.scalatech.repository.springdatajpa;
 
 import java.util.List;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
-import org.springframework.samples.petclinic.model.Pet;
-import org.springframework.samples.petclinic.model.PetType;
-import org.springframework.samples.petclinic.repository.PetRepository;
+
+import pl.java.scalatech.model.Pet;
+import pl.java.scalatech.model.PetType;
+import pl.java.scalatech.repository.PetRepository;
+
 
 /**
  * Spring Data JPA specialization of the {@link PetRepository} interface
@@ -30,6 +33,7 @@ import org.springframework.samples.petclinic.repository.PetRepository;
  * @author Michael Isvy
  * @since 15.1.2013
  */
+@Profile("data")
 public interface SpringDataPetRepository extends PetRepository, Repository<Pet, Integer> {
 
     @Override

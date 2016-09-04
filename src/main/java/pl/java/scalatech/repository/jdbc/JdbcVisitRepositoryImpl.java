@@ -15,23 +15,25 @@
  */
 package pl.java.scalatech.repository.jdbc;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.joda.time.DateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
-import org.springframework.samples.petclinic.model.Visit;
-import org.springframework.samples.petclinic.repository.VisitRepository;
 import org.springframework.stereotype.Repository;
+
+import pl.java.scalatech.model.Visit;
+import pl.java.scalatech.repository.VisitRepository;
 
 /**
  * A simple JDBC-based implementation of the {@link VisitRepository} interface.
@@ -45,13 +47,14 @@ import org.springframework.stereotype.Repository;
  * @author Michael Isvy
  */
 @Repository
+@Profile("jdbc")
 public class JdbcVisitRepositoryImpl implements VisitRepository {
 
     private JdbcTemplate jdbcTemplate;
 
     private SimpleJdbcInsert insertVisit;
 
-    @Autowired
+   
     public JdbcVisitRepositoryImpl(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
 
@@ -67,9 +70,8 @@ public class JdbcVisitRepositoryImpl implements VisitRepository {
             Number newKey = this.insertVisit.executeAndReturnKey(
                     createVisitParameterSource(visit));
             visit.setId(newKey.intValue());
-        } else {
+        } else
             throw new UnsupportedOperationException("Visit update not supported");
-        }
     }
 
     public void deletePet(int id) throws DataAccessException {
@@ -83,7 +85,7 @@ public class JdbcVisitRepositoryImpl implements VisitRepository {
     private MapSqlParameterSource createVisitParameterSource(Visit visit) {
         return new MapSqlParameterSource()
                 .addValue("id", visit.getId())
-                .addValue("visit_date", visit.getDate().toDate())
+                .addValue("visit_date", visit.getDate())
                 .addValue("description", visit.getDescription())
                 .addValue("pet_id", visit.getPet().getId());
     }
@@ -92,16 +94,13 @@ public class JdbcVisitRepositoryImpl implements VisitRepository {
     public List<Visit> findByPetId(Integer petId) {
         final List<Visit> visits = this.jdbcTemplate.query(
                 "SELECT id, visit_date, description FROM visits WHERE pet_id=?",
-                new ParameterizedRowMapper<Visit>() {
-                    @Override
-                    public Visit mapRow(ResultSet rs, int row) throws SQLException {
-                        Visit visit = new Visit();
-                        visit.setId(rs.getInt("id"));
-                        Date visitDate = rs.getDate("visit_date");
-                        visit.setDate(new DateTime(visitDate));
-                        visit.setDescription(rs.getString("description"));
-                        return visit;
-                    }
+                (RowMapper<Visit>) (rs, row) -> {
+                    Visit visit = new Visit();
+                    visit.setId(rs.getInt("id"));                    
+                    Date visitDate = rs.getDate("visit_date");
+                    visit.setDate(LocalDateTime.ofInstant(visitDate.toInstant(), ZoneId.systemDefault()));
+                    visit.setDescription(rs.getString("description"));
+                    return visit;
                 },
                 petId);
         return visits;

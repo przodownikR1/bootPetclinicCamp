@@ -18,10 +18,6 @@ package pl.java.scalatech.web;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.model.Owner;
-import org.springframework.samples.petclinic.model.Pet;
-import org.springframework.samples.petclinic.model.PetType;
-import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -34,6 +30,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import pl.java.scalatech.model.Owner;
+import pl.java.scalatech.model.Pet;
+import pl.java.scalatech.model.PetType;
+import pl.java.scalatech.service.ClinicService;
+
 /**
  * @author Juergen Hoeller
  * @author Ken Krebs
@@ -44,9 +45,7 @@ import org.springframework.web.bind.support.SessionStatus;
 public class PetController {
 
     private final ClinicService clinicService;
-
-
-    @Autowired
+    
     public PetController(ClinicService clinicService) {
         this.clinicService = clinicService;
     }
@@ -75,11 +74,10 @@ public class PetController {
         new PetValidator().validate(pet, result);
         if (result.hasErrors()) {
             return "pets/createOrUpdatePetForm";
-        } else {
-            this.clinicService.savePet(pet);
-            status.setComplete();
-            return "redirect:/owners/{ownerId}";
         }
+        this.clinicService.savePet(pet);
+        status.setComplete();
+        return "redirect:/owners/{ownerId}";
     }
 
     @RequestMapping(value = "/owners/*/pets/{petId}/edit", method = RequestMethod.GET)

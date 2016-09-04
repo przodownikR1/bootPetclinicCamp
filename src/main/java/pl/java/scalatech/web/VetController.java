@@ -16,11 +16,13 @@
 package pl.java.scalatech.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.model.Vets;
-import org.springframework.samples.petclinic.service.ClinicService;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import pl.java.scalatech.model.Vets;
+import pl.java.scalatech.service.ClinicService;
 
 /**
  * @author Juergen Hoeller
@@ -33,8 +35,6 @@ public class VetController {
 
     private final ClinicService clinicService;
 
-
-    @Autowired
     public VetController(ClinicService clinicService) {
         this.clinicService = clinicService;
     }

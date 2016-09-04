@@ -21,7 +21,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.cache.annotation.Cacheable;
-
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import pl.java.scalatech.model.Vet;
@@ -37,6 +37,7 @@ import pl.java.scalatech.repository.VetRepository;
  * @since 22.4.2006
  */
 @Repository
+@Profile("jpa")
 public class JpaVetRepositoryImpl implements VetRepository {
 
     @PersistenceContext

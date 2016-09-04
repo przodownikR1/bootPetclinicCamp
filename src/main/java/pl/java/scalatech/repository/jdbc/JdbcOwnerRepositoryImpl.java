@@ -23,22 +23,24 @@ import java.util.Map;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.simple.ParameterizedBeanPropertyRowMapper;
+
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.stereotype.Repository;
 
 import pl.java.scalatech.model.Owner;
-import pl.java.scalatech.model.Pet;
 import pl.java.scalatech.model.PetType;
 import pl.java.scalatech.model.Visit;
 import pl.java.scalatech.repository.OwnerRepository;
 import pl.java.scalatech.repository.VisitRepository;
 import pl.java.scalatech.util.EntityUtils;
+
 
 /**
  * A simple JDBC-based implementation of the {@link OwnerRepository} interface.
@@ -51,6 +53,7 @@ import pl.java.scalatech.util.EntityUtils;
  * @author Mark Fisher
  */
 @Repository
+@Profile("jdbc")
 public class JdbcOwnerRepositoryImpl implements OwnerRepository {
 
     private VisitRepository visitRepository;
@@ -80,12 +83,12 @@ public class JdbcOwnerRepositoryImpl implements OwnerRepository {
      */
     @Override
     public Collection<Owner> findByLastName(String lastName) throws DataAccessException {
-        Map<String, Object> params = new HashMap<String, Object>();
+        Map<String, Object> params = new HashMap<>();
         params.put("lastName", lastName + "%");
         List<Owner> owners = this.namedParameterJdbcTemplate.query(
                 "SELECT id, first_name, last_name, address, city, telephone FROM owners WHERE last_name like :lastName",
                 params,
-                ParameterizedBeanPropertyRowMapper.newInstance(Owner.class)
+                BeanPropertyRowMapper.newInstance(Owner.class)
         );
         loadOwnersPetsAndVisits(owners);
         return owners;
@@ -99,12 +102,12 @@ public class JdbcOwnerRepositoryImpl implements OwnerRepository {
     public Owner findById(int id) throws DataAccessException {
         Owner owner;
         try {
-            Map<String, Object> params = new HashMap<String, Object>();
+            Map<String, Object> params = new HashMap<>();
             params.put("id", id);
             owner = this.namedParameterJdbcTemplate.queryForObject(
                     "SELECT id, first_name, last_name, address, city, telephone FROM owners WHERE id= :id",
                     params,
-                    ParameterizedBeanPropertyRowMapper.newInstance(Owner.class)
+                    BeanPropertyRowMapper.newInstance(Owner.class)
             );
         } catch (EmptyResultDataAccessException ex) {
             throw new ObjectRetrievalFailureException(Owner.class, id);
@@ -114,7 +117,7 @@ public class JdbcOwnerRepositoryImpl implements OwnerRepository {
     }
 
     public void loadPetsAndVisits(final Owner owner) {
-        Map<String, Object> params = new HashMap<String, Object>();
+        Map<String, Object> params = new HashMap<>();
         params.put("id", owner.getId().intValue());
         final List<JdbcPet> pets = this.namedParameterJdbcTemplate.query(
                 "SELECT id, name, birth_date, type_id, owner_id FROM pets WHERE owner_id=:id",
@@ -148,7 +151,7 @@ public class JdbcOwnerRepositoryImpl implements OwnerRepository {
     public Collection<PetType> getPetTypes() throws DataAccessException {
         return this.namedParameterJdbcTemplate.query(
                 "SELECT id, name FROM types ORDER BY name", new HashMap<String, Object>(),
-                ParameterizedBeanPropertyRowMapper.newInstance(PetType.class));
+                BeanPropertyRowMapper.newInstance(PetType.class));
     }
 
     /**

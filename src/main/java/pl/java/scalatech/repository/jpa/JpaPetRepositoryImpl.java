@@ -20,7 +20,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import pl.java.scalatech.model.Pet;
@@ -37,6 +37,7 @@ import pl.java.scalatech.repository.PetRepository;
  * @since 22.4.2006
  */
 @Repository
+@Profile("jpa")
 public class JpaPetRepositoryImpl implements PetRepository {
 
     @PersistenceContext

@@ -18,9 +18,6 @@ package pl.java.scalatech.web;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.model.Pet;
-import org.springframework.samples.petclinic.model.Visit;
-import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,6 +29,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
+
+import pl.java.scalatech.model.Pet;
+import pl.java.scalatech.model.Visit;
+import pl.java.scalatech.service.ClinicService;
 
 /**
  * @author Juergen Hoeller
@@ -46,7 +47,7 @@ public class VisitController {
     private final ClinicService clinicService;
 
 
-    @Autowired
+  
     public VisitController(ClinicService clinicService) {
         this.clinicService = clinicService;
     }

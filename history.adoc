@@ -8,8 +8,67 @@
 
 === Spring jdbc dependecy needed
 
+----
+<dependency>
+        <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-jdbc</artifactId>  
+       </dependency>
+----
+
+----
+import org.springframework.jdbc.core.simple.ParameterizedBeanPropertyRowMapper;
+
+BeanPropertyRowMapper.newInstance
+
+instead of
+
+
+ParameterizedBeanPropertyRowMapper.newInstance(Owner.class)
+
+----
+
+----
+RowMapper
+
+instead of
+
+ParameterizedRowMapper 
+----
+
+
 === Joda -> java 8 data-time
+
+----
+LocalDateTime
+----
+
+** JDBC
+
+----
+Date in = new Date();
+LocalDateTime ldt = LocalDateTime.ofInstant(in.toInstant(), ZoneId.systemDefault());
+Date out = Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
+
+----
+
+** Remove jadira from entities
+
 
 === VetsAtomView extends AbstractAtomFeedView  => atom dependency needed
 
+----
+<dependency>
+          <groupId>com.rometools</groupId>
+          <artifactId>rome</artifactId>
+          <version>1.5.0</version>
+        </dependency>
+----
+
+=== Clearing constructor - > remove @Autowired
+
+
+=== Use profile jdbc,data,jpa
+
+
+=== application.properties set active profile on data
 

@@ -15,9 +15,11 @@
  */
 package pl.java.scalatech.web;
 
-import org.springframework.samples.petclinic.model.Pet;
+
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
+
+import pl.java.scalatech.model.Pet;
 
 /**
  * <code>Validator</code> for <code>Pet</code> forms.

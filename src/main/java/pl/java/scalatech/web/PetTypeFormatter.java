@@ -22,8 +22,10 @@ import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.Formatter;
-import org.springframework.samples.petclinic.model.PetType;
-import org.springframework.samples.petclinic.service.ClinicService;
+
+import pl.java.scalatech.model.PetType;
+import pl.java.scalatech.service.ClinicService;
+
 
 /**
  * Instructs Spring MVC on how to parse and print elements of type 'PetType'. Starting from Spring 3.0, Formatters have
@@ -41,8 +43,6 @@ public class PetTypeFormatter implements Formatter<PetType> {
 
     private final ClinicService clinicService;
 
-
-    @Autowired
     public PetTypeFormatter(ClinicService clinicService) {
         this.clinicService = clinicService;
     }

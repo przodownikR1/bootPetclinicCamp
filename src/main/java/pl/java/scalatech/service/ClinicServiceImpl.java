@@ -48,7 +48,6 @@ public class ClinicServiceImpl implements ClinicService {
     private OwnerRepository ownerRepository;
     private VisitRepository visitRepository;
 
-    @Autowired
     public ClinicServiceImpl(PetRepository petRepository, VetRepository vetRepository, OwnerRepository ownerRepository, VisitRepository visitRepository) {
         this.petRepository = petRepository;
         this.vetRepository = vetRepository;

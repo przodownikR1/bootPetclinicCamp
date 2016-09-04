@@ -32,7 +32,9 @@ package pl.java.scalatech.repository;
 
 import java.util.Collection;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Repository;
 
 import pl.java.scalatech.model.Owner;
 
@@ -46,6 +48,8 @@ import pl.java.scalatech.model.Owner;
  * @author Sam Brannen
  * @author Michael Isvy
  */
+@Profile("data")
+@Repository
 public interface OwnerRepository {
 
     /**

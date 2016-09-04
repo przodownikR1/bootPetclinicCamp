@@ -22,11 +22,12 @@ import java.util.Map;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.simple.ParameterizedBeanPropertyRowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.orm.ObjectRetrievalFailureException;
 
@@ -39,6 +40,7 @@ import pl.java.scalatech.model.Visit;
 import pl.java.scalatech.repository.OwnerRepository;
 import pl.java.scalatech.repository.PetRepository;
 import pl.java.scalatech.repository.VisitRepository;
+import pl.java.scalatech.util.EntityUtils;
 
 /**
  * @author Ken Krebs
@@ -49,6 +51,7 @@ import pl.java.scalatech.repository.VisitRepository;
  * @author Mark Fisher
  */
 @Repository
+@Profile("jdbc")
 public class JdbcPetRepositoryImpl implements PetRepository {
 
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -74,11 +77,11 @@ public class JdbcPetRepositoryImpl implements PetRepository {
 
     @Override
     public List<PetType> findPetTypes() throws DataAccessException {
-        Map<String, Object> params = new HashMap<String, Object>();
+        Map<String, Object> params = new HashMap<>();
         return this.namedParameterJdbcTemplate.query(
                 "SELECT id, name FROM types ORDER BY name",
                 params,
-                ParameterizedBeanPropertyRowMapper.newInstance(PetType.class));
+                BeanPropertyRowMapper.newInstance(PetType.class));
     }
 
     @Override
@@ -126,7 +129,7 @@ public class JdbcPetRepositoryImpl implements PetRepository {
         return new MapSqlParameterSource()
                 .addValue("id", pet.getId())
                 .addValue("name", pet.getName())
-                .addValue("birth_date", pet.getBirthDate().toDate())
+                .addValue("birth_date", pet.getBirthDate())
                 .addValue("type_id", pet.getType().getId())
                 .addValue("owner_id", pet.getOwner().getId());
     }

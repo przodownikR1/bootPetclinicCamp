@@ -15,6 +15,8 @@
  */
 package pl.java.scalatech.model;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -23,7 +25,6 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.joda.time.DateTime;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
@@ -38,10 +39,9 @@ public class Visit extends BaseEntity {
     /**
      * Holds value of property date.
      */
-    @Column(name = "visit_date")
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @Column(name = "visit_date")  
     @DateTimeFormat(pattern = "yyyy/MM/dd")
-    private DateTime date;
+    private LocalDateTime date;
 
     /**
      * Holds value of property description.
@@ -62,7 +62,7 @@ public class Visit extends BaseEntity {
      * Creates a new instance of Visit for the current date
      */
     public Visit() {
-        this.date = new DateTime();
+        this.date = LocalDateTime.now();
     }
 
 
@@ -71,7 +71,7 @@ public class Visit extends BaseEntity {
      *
      * @return Value of property date.
      */
-    public DateTime getDate() {
+    public LocalDateTime getDate() {
         return this.date;
     }
 
@@ -80,7 +80,7 @@ public class Visit extends BaseEntity {
      *
      * @param date New value of property date.
      */
-    public void setDate(DateTime date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

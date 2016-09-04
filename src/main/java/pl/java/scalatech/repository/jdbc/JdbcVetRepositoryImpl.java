@@ -15,22 +15,22 @@
  */
 package pl.java.scalatech.repository.jdbc;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.simple.ParameterizedBeanPropertyRowMapper;
-import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
-import org.springframework.samples.petclinic.model.Specialty;
-import org.springframework.samples.petclinic.model.Vet;
-import org.springframework.samples.petclinic.repository.VetRepository;
-import org.springframework.samples.petclinic.util.EntityUtils;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+
+import pl.java.scalatech.model.Specialty;
+import pl.java.scalatech.model.Vet;
+import pl.java.scalatech.repository.VetRepository;
+import pl.java.scalatech.util.EntityUtils;
 
 /**
  * A simple JDBC-based implementation of the {@link VetRepository} interface. Uses @Cacheable to cache the result of the
@@ -45,11 +45,11 @@ import org.springframework.stereotype.Repository;
  * @author Michael Isvy
  */
 @Repository
+@Profile("jdbc")
 public class JdbcVetRepositoryImpl implements VetRepository {
 
     private JdbcTemplate jdbcTemplate;
-
-    @Autowired
+    
     public JdbcVetRepositoryImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
@@ -61,27 +61,22 @@ public class JdbcVetRepositoryImpl implements VetRepository {
      */
     @Override
     public Collection<Vet> findAll() throws DataAccessException {
-        List<Vet> vets = new ArrayList<Vet>();
+        List<Vet> vets = new ArrayList<>();
         // Retrieve the list of all vets.
         vets.addAll(this.jdbcTemplate.query(
                 "SELECT id, first_name, last_name FROM vets ORDER BY last_name,first_name",
-                ParameterizedBeanPropertyRowMapper.newInstance(Vet.class)));
+                BeanPropertyRowMapper.newInstance(Vet.class)));
 
         // Retrieve the list of all possible specialties.
         final List<Specialty> specialties = this.jdbcTemplate.query(
                 "SELECT id, name FROM specialties",
-                ParameterizedBeanPropertyRowMapper.newInstance(Specialty.class));
+                BeanPropertyRowMapper.newInstance(Specialty.class));
 
         // Build each vet's list of specialties.
         for (Vet vet : vets) {
             final List<Integer> vetSpecialtiesIds = this.jdbcTemplate.query(
                     "SELECT specialty_id FROM vet_specialties WHERE vet_id=?",
-                    new ParameterizedRowMapper<Integer>() {
-                        @Override
-                        public Integer mapRow(ResultSet rs, int row) throws SQLException {
-                            return Integer.valueOf(rs.getInt(1));
-                        }
-                    },
+                    (RowMapper<Integer>) (rs, row) -> Integer.valueOf(rs.getInt(1)),
                     vet.getId().intValue());
             for (int specialtyId : vetSpecialtiesIds) {
                 Specialty specialty = EntityUtils.getById(specialties, Specialty.class, specialtyId);

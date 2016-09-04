@@ -21,6 +21,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.orm.hibernate3.support.OpenSessionInViewFilter;
 import org.springframework.stereotype.Repository;
 
@@ -37,6 +38,7 @@ import pl.java.scalatech.repository.OwnerRepository;
  * @since 22.4.2006
  */
 @Repository
+@Profile("jpa")
 public class JpaOwnerRepositoryImpl implements OwnerRepository {
 
     @PersistenceContext

@@ -33,6 +33,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import pl.java.scalatech.model.Owner;
+import pl.java.scalatech.service.ClinicService;
+
 /**
  * @author Juergen Hoeller
  * @author Ken Krebs
@@ -45,8 +48,6 @@ public class OwnerController {
 
     private final ClinicService clinicService;
 
-
-    @Autowired
     public OwnerController(ClinicService clinicService) {
         this.clinicService = clinicService;
     }
@@ -67,11 +68,10 @@ public class OwnerController {
     public String processCreationForm(@Valid Owner owner, BindingResult result, SessionStatus status) {
         if (result.hasErrors()) {
             return "owners/createOrUpdateOwnerForm";
-        } else {
-            this.clinicService.saveOwner(owner);
-            status.setComplete();
-            return "redirect:/owners/" + owner.getId();
         }
+        this.clinicService.saveOwner(owner);
+        status.setComplete();
+        return "redirect:/owners/" + owner.getId();
     }
 
     @RequestMapping(value = "/owners/find", method = RequestMethod.GET)
@@ -99,11 +99,10 @@ public class OwnerController {
             // multiple owners found
             model.addAttribute("selections", results);
             return "owners/ownersList";
-        } else {
-            // 1 owner found
-            owner = results.iterator().next();
-            return "redirect:/owners/" + owner.getId();
         }
+        // 1 owner found
+        owner = results.iterator().next();
+        return "redirect:/owners/" + owner.getId();
     }
 
     @RequestMapping(value = "/owners/{ownerId}/edit", method = RequestMethod.GET)
@@ -117,11 +116,10 @@ public class OwnerController {
     public String processUpdateOwnerForm(@Valid Owner owner, BindingResult result, SessionStatus status) {
         if (result.hasErrors()) {
             return "owners/createOrUpdateOwnerForm";
-        } else {
-            this.clinicService.saveOwner(owner);
-            status.setComplete();
-            return "redirect:/owners/{ownerId}";
         }
+        this.clinicService.saveOwner(owner);
+        status.setComplete();
+        return "redirect:/owners/{ownerId}";
     }
 
     /**
