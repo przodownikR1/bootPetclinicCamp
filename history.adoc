@@ -1,0 +1,15 @@
+== Refactoring -> Spring to Spring Boot
+
+=== Create Spring Starter project using eclipse
+
+=== Move class to other base package now : pl.java.scalatech with safe this same layer naming
+
+=== Refactoring naming package
+
+=== Spring jdbc dependecy needed
+
+=== Joda -> java 8 data-time
+
+=== VetsAtomView extends AbstractAtomFeedView  => atom dependency needed
+
+
