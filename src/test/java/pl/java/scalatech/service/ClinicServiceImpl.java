@@ -20,17 +20,19 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataAccessException;
-import org.springframework.samples.petclinic.model.Owner;
-import org.springframework.samples.petclinic.model.Pet;
-import org.springframework.samples.petclinic.model.PetType;
-import org.springframework.samples.petclinic.model.Vet;
-import org.springframework.samples.petclinic.model.Visit;
-import org.springframework.samples.petclinic.repository.OwnerRepository;
-import org.springframework.samples.petclinic.repository.PetRepository;
-import org.springframework.samples.petclinic.repository.VetRepository;
-import org.springframework.samples.petclinic.repository.VisitRepository;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import pl.java.scalatech.model.Owner;
+import pl.java.scalatech.model.Pet;
+import pl.java.scalatech.model.PetType;
+import pl.java.scalatech.model.Vet;
+import pl.java.scalatech.model.Visit;
+import pl.java.scalatech.repository.OwnerRepository;
+import pl.java.scalatech.repository.PetRepository;
+import pl.java.scalatech.repository.VetRepository;
+import pl.java.scalatech.repository.VisitRepository;
 
 /**
  * Mostly used as a facade for all Petclinic controllers

@@ -29,15 +29,16 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.ParameterizedBeanPropertyRowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.orm.ObjectRetrievalFailureException;
-import org.springframework.samples.petclinic.model.Owner;
-import org.springframework.samples.petclinic.model.Pet;
-import org.springframework.samples.petclinic.model.PetType;
-import org.springframework.samples.petclinic.model.Visit;
-import org.springframework.samples.petclinic.repository.OwnerRepository;
-import org.springframework.samples.petclinic.repository.PetRepository;
-import org.springframework.samples.petclinic.repository.VisitRepository;
-import org.springframework.samples.petclinic.util.EntityUtils;
+
 import org.springframework.stereotype.Repository;
+
+import pl.java.scalatech.model.Owner;
+import pl.java.scalatech.model.Pet;
+import pl.java.scalatech.model.PetType;
+import pl.java.scalatech.model.Visit;
+import pl.java.scalatech.repository.OwnerRepository;
+import pl.java.scalatech.repository.PetRepository;
+import pl.java.scalatech.repository.VisitRepository;
 
 /**
  * @author Ken Krebs

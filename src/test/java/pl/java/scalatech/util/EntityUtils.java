@@ -19,7 +19,9 @@ package pl.java.scalatech.util;
 import java.util.Collection;
 
 import org.springframework.orm.ObjectRetrievalFailureException;
-import org.springframework.samples.petclinic.model.BaseEntity;
+
+import pl.java.scalatech.model.BaseEntity;
+
 
 /**
  * Utility methods for handling entities. Separate from the BaseEntity class mainly because of dependency on the

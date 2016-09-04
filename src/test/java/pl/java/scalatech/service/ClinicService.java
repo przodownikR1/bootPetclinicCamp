@@ -18,11 +18,13 @@ package pl.java.scalatech.service;
 import java.util.Collection;
 
 import org.springframework.dao.DataAccessException;
-import org.springframework.samples.petclinic.model.Owner;
-import org.springframework.samples.petclinic.model.Pet;
-import org.springframework.samples.petclinic.model.PetType;
-import org.springframework.samples.petclinic.model.Vet;
-import org.springframework.samples.petclinic.model.Visit;
+
+import pl.java.scalatech.model.Owner;
+import pl.java.scalatech.model.Pet;
+import pl.java.scalatech.model.PetType;
+import pl.java.scalatech.model.Vet;
+import pl.java.scalatech.model.Visit;
+
 
 
 /**

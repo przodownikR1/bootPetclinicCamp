@@ -22,8 +22,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.samples.petclinic.model.Vet;
-import org.springframework.samples.petclinic.model.Vets;
+
 import org.springframework.web.servlet.view.feed.AbstractAtomFeedView;
 
 import com.sun.syndication.feed.atom.Content;

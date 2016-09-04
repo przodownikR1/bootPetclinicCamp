@@ -15,7 +15,7 @@
  */
 package pl.java.scalatech.repository.jdbc;
 
-import org.springframework.samples.petclinic.model.Pet;
+import pl.java.scalatech.model.Pet;
 
 /**
  * Subclass of Pet that carries temporary id properties which are only relevant for a JDBC implmentation of the

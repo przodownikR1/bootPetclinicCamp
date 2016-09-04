@@ -21,9 +21,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import org.springframework.samples.petclinic.model.Visit;
-import org.springframework.samples.petclinic.repository.VisitRepository;
 import org.springframework.stereotype.Repository;
+
+import pl.java.scalatech.model.Visit;
+import pl.java.scalatech.repository.VisitRepository;
 
 /**
  * JPA implementation of the ClinicService interface using EntityManager.

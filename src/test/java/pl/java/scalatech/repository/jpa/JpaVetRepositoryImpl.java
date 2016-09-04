@@ -21,9 +21,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.samples.petclinic.model.Vet;
-import org.springframework.samples.petclinic.repository.VetRepository;
+
 import org.springframework.stereotype.Repository;
+
+import pl.java.scalatech.model.Vet;
+import pl.java.scalatech.repository.VetRepository;
 
 /**
  * JPA implementation of the {@link VetRepository} interface.
