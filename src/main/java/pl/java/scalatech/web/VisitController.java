@@ -70,11 +70,10 @@ public class VisitController {
     public String processNewVisitForm(@Valid Visit visit, BindingResult result, SessionStatus status) {
         if (result.hasErrors()) {
             return "pets/createOrUpdateVisitForm";
-        } else {
-            this.clinicService.saveVisit(visit);
-            status.setComplete();
-            return "redirect:/owners/{ownerId}";
         }
+        this.clinicService.saveVisit(visit);
+        status.setComplete();
+        return "redirect:/owners/{ownerId}";
     }
 
     @RequestMapping(value = "/owners/*/pets/{petId}/visits", method = RequestMethod.GET)
