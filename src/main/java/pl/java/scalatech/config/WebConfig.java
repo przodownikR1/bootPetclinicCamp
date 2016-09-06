@@ -8,6 +8,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
+import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 
 import lombok.extern.slf4j.Slf4j;
 import pl.java.scalatech.service.ClinicService;
@@ -71,5 +72,10 @@ public class WebConfig extends  WebMvcConfigurationSupport{
         registry.addFormatter(new PetTypeFormatter(clinicService));
         registry.addFormatter(new LocalDateFormatter());
         
+    }
+    
+    @Bean
+    public Java8TimeDialect java8TimeDialect() {
+        return new Java8TimeDialect();
     }
 }

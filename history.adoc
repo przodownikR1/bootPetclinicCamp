@@ -464,3 +464,28 @@ There was an unexpected error (type=Internal Server Error, status=500).
 Exception evaluating SpringEL expression: "#dates.format(pet.birthDate.toDate(), 'yyyy-MM-dd')" (owners/ownerDetails:83)
 ----
 
+
+----
+<dependency>
+    <groupId>org.thymeleaf.extras</groupId>
+    <artifactId>thymeleaf-extras-java8time</artifactId>
+    <version>2.1.0.RELEASE</version>
+</dependency>
+----
+
+** Config
+
+----
+ @Bean
+    public Java8TimeDialect java8TimeDialect() {
+        return new Java8TimeDialect();
+    }
+----
+
+** Thymeleaf
+
+
+----
+!-- <dd th:text="${#dates.format(pet.birthDate.toDate(), 'yyyy-MM-dd')}">[birthdate yyyy-MM-dd]</dd> -->
+<dd th:text="${#temporals.format(pet.birthDate, 'dd/MM/yyyy')}">[birthdate yyyy-MM-dd]</dd>
+----
