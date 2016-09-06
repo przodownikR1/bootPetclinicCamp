@@ -19,8 +19,6 @@ import java.util.Collection;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -69,7 +67,7 @@ public class OwnerController {
         if (result.hasErrors()) {
             return "owners/createOrUpdateOwnerForm";
         }
-        this.clinicService.saveOwner(owner);
+        owner = this.clinicService.saveOwner(owner);     
         status.setComplete();
         return "redirect:/owners/" + owner.getId();
     }

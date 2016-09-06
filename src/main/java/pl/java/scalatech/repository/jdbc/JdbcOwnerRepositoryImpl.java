@@ -135,7 +135,7 @@ public class JdbcOwnerRepositoryImpl implements OwnerRepository {
     }
 
     @Override
-    public void save(Owner owner) throws DataAccessException {
+    public Owner save(Owner owner) throws DataAccessException {
         BeanPropertySqlParameterSource parameterSource = new BeanPropertySqlParameterSource(owner);
         if (owner.isNew()) {
             Number newKey = this.insertOwner.executeAndReturnKey(parameterSource);
@@ -146,6 +146,8 @@ public class JdbcOwnerRepositoryImpl implements OwnerRepository {
                             "city=:city, telephone=:telephone WHERE id=:id",
                     parameterSource);
         }
+        //TODO
+        return owner;
     }
 
     public Collection<PetType> getPetTypes() throws DataAccessException {

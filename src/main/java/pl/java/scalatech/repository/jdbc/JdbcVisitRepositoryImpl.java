@@ -65,13 +65,14 @@ public class JdbcVisitRepositoryImpl implements VisitRepository {
 
 
     @Override
-    public void save(Visit visit) throws DataAccessException {
+    public Visit save(Visit visit) throws DataAccessException {
         if (visit.isNew()) {
             Number newKey = this.insertVisit.executeAndReturnKey(
                     createVisitParameterSource(visit));
             visit.setId(newKey.intValue());
-        } else
-            throw new UnsupportedOperationException("Visit update not supported");
+            return visit;
+        }
+        throw new UnsupportedOperationException("Visit update not supported");
     }
 
     public void deletePet(int id) throws DataAccessException {

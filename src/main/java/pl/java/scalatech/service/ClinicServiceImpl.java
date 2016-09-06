@@ -17,13 +17,12 @@ package pl.java.scalatech.service;
 
 import java.util.Collection;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataAccessException;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import lombok.extern.slf4j.Slf4j;
 import pl.java.scalatech.model.Owner;
 import pl.java.scalatech.model.Pet;
 import pl.java.scalatech.model.PetType;
@@ -41,6 +40,7 @@ import pl.java.scalatech.repository.VisitRepository;
  * @author Michael Isvy
  */
 @Service
+@Slf4j
 public class ClinicServiceImpl implements ClinicService {
 
     private PetRepository petRepository;
@@ -75,15 +75,18 @@ public class ClinicServiceImpl implements ClinicService {
 
     @Override
     @Transactional
-    public void saveOwner(Owner owner) throws DataAccessException {
-        ownerRepository.save(owner);
+    public Owner saveOwner(Owner owner) throws DataAccessException {
+        Owner ownerLoaded = ownerRepository.save(owner);
+        log.info("+++ service owner : {}",ownerLoaded);
+        return ownerLoaded;
+       
     }
 
 
     @Override
     @Transactional
-    public void saveVisit(Visit visit) throws DataAccessException {
-        visitRepository.save(visit);
+    public Visit saveVisit(Visit visit) throws DataAccessException {
+        return visitRepository.save(visit);
     }
 
 
@@ -95,8 +98,8 @@ public class ClinicServiceImpl implements ClinicService {
 
     @Override
     @Transactional
-    public void savePet(Pet pet) throws DataAccessException {
-        petRepository.save(pet);
+    public Pet savePet(Pet pet) throws DataAccessException {
+        return petRepository.save(pet);
     }
 
     @Override

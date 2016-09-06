@@ -109,7 +109,7 @@ public class JdbcPetRepositoryImpl implements PetRepository {
     }
 
     @Override
-    public void save(Pet pet) throws DataAccessException {
+    public Pet save(Pet pet) throws DataAccessException {
         if (pet.isNew()) {
             Number newKey = this.insertPet.executeAndReturnKey(
                     createPetParameterSource(pet));
@@ -119,7 +119,9 @@ public class JdbcPetRepositoryImpl implements PetRepository {
                     "UPDATE pets SET name=:name, birth_date=:birth_date, type_id=:type_id, " +
                             "owner_id=:owner_id WHERE id=:id",
                     createPetParameterSource(pet));
+     
         }
+        return pet;
     }
 
     /**

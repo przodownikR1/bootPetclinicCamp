@@ -72,8 +72,9 @@ public class JpaOwnerRepositoryImpl implements OwnerRepository {
 
 
     @Override
-    public void save(Owner owner) {
-        this.em.merge(owner);
+    public Owner save(Owner owner) {
+        owner = this.em.merge(owner);
+        return owner;
 
     }
 

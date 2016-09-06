@@ -79,7 +79,7 @@ public interface OwnerRepository {
      * @param owner the <code>Owner</code> to save
      * @see BaseEntity#isNew
      */
-    void save(Owner owner) throws DataAccessException;
+    Owner save(Owner owner) throws DataAccessException;
 
 
 }

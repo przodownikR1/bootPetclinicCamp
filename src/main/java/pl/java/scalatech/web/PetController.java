@@ -17,7 +17,6 @@ package pl.java.scalatech.web;
 
 import java.util.Collection;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -75,7 +74,7 @@ public class PetController {
         if (result.hasErrors()) {
             return "pets/createOrUpdatePetForm";
         }
-        this.clinicService.savePet(pet);
+        pet = this.clinicService.savePet(pet);
         status.setComplete();
         return "redirect:/owners/{ownerId}";
     }
@@ -93,11 +92,10 @@ public class PetController {
         new PetValidator().validate(pet, result);
         if (result.hasErrors()) {
             return "pets/createOrUpdatePetForm";
-        } else {
-            this.clinicService.savePet(pet);
-            status.setComplete();
-            return "redirect:/owners/{ownerId}";
         }
+        this.clinicService.savePet(pet);
+        status.setComplete();
+        return "redirect:/owners/{ownerId}";
     }
 
 }

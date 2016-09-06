@@ -24,6 +24,7 @@ import javax.persistence.Query;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
+import lombok.extern.slf4j.Slf4j;
 import pl.java.scalatech.model.Owner;
 import pl.java.scalatech.repository.OwnerRepository;
 
@@ -36,6 +37,7 @@ import pl.java.scalatech.repository.OwnerRepository;
  */
 @Repository
 @Profile("data")
+@Slf4j
 public class JpaOwnerRepositoryImpl implements OwnerRepository {
 
     @PersistenceContext
@@ -63,9 +65,10 @@ public class JpaOwnerRepositoryImpl implements OwnerRepository {
 
 
     @Override
-    public void save(Owner owner) {
-        this.em.merge(owner);
-
+    public Owner save(Owner owner) {        
+         owner = this.em.merge(owner);
+         return owner;
+        
     }
 
 }
