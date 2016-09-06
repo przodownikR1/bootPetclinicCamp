@@ -11,6 +11,7 @@ import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 
 import lombok.extern.slf4j.Slf4j;
 import pl.java.scalatech.service.ClinicService;
+import pl.java.scalatech.web.LocalDateFormatter;
 import pl.java.scalatech.web.PetTypeFormatter;
 
 @Configuration
@@ -68,6 +69,7 @@ public class WebConfig extends  WebMvcConfigurationSupport{
         log.info(":::::            addFormatters            ::::::");   
         super.addFormatters(registry);
         registry.addFormatter(new PetTypeFormatter(clinicService));
+        registry.addFormatter(new LocalDateFormatter());
         
     }
 }

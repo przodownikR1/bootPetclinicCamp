@@ -99,7 +99,7 @@ public class JdbcVisitRepositoryImpl implements VisitRepository {
                     Visit visit = new Visit();
                     visit.setId(rs.getInt("id"));                    
                     Date visitDate = rs.getDate("visit_date");
-                    visit.setDate(LocalDateTime.ofInstant(visitDate.toInstant(), ZoneId.systemDefault()));
+                    visit.setDate(LocalDateTime.ofInstant(visitDate.toInstant(), ZoneId.systemDefault()).toLocalDate());
                     visit.setDescription(rs.getString("description"));
                     return visit;
                 },

@@ -420,5 +420,47 @@ spring.devtools.restart.additional-exclude=**/*.js,**/*.css,**/*.html, **/*.svg,
 ----
 There was an unexpected error (type=Bad Request, status=400).
 Failed to convert value of type [java.lang.String] to required type [int]; nested exception is java.lang.NumberFormatException: For input string: "null"
----- 
+----
+ 
+
+----
+Owner save(Owner owner) throws DataAccessException;
+repo
+service
+controller
+
+modify save method
+----
+
+
+=== PET save problem
+
+----
+Failed to convert property value of type [java.lang.String] to required type [java.time.LocalDateTime] for property 'birthDate'; nested exception is org.springframework.core.convert.ConversionFailedException: Failed to convert from type [java.lang.String] to type [@javax.persistence.Column @org.springframework.format.annotation.DateTimeFormat java.time.LocalDateTime] for value '2016/09/07'; nested exception is java.time.format.DateTimeParseException: Text '2016/09/07' could not be parsed: Unable to obtain LocalDateTime from TemporalAccessor: {},ISO resolved to 2016-09-07 of type java.time.format.Parsed
+----
+
+----
+@Slf4j
+public class LocalDateFormatter implements Formatter<LocalDate> {
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+    @Override
+    public LocalDate parse(String s, Locale locale) throws ParseException {
+        log.info("LocalDateFormatter : parse : {}",s);
+        LocalDate date = LocalDate.from(formatter.parse(s));
+        return date;
+    }
+    @Override
+    public String print(LocalDate localDate, Locale locale) {
+        log.info("print : localDate : {}",localDate);
+        return formatter.format(localDate);
+    }
+}
+----
+
+=== Thymeleaf problem
+
+----
+There was an unexpected error (type=Internal Server Error, status=500).
+Exception evaluating SpringEL expression: "#dates.format(pet.birthDate.toDate(), 'yyyy-MM-dd')" (owners/ownerDetails:83)
+----
 

@@ -15,6 +15,7 @@
  */
 package pl.java.scalatech.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -41,7 +42,7 @@ public class Visit extends BaseEntity {
      */
     @Column(name = "visit_date")  
     @DateTimeFormat(pattern = "yyyy/MM/dd")
-    private LocalDateTime date;
+    private LocalDate date;
 
     /**
      * Holds value of property description.
@@ -62,7 +63,7 @@ public class Visit extends BaseEntity {
      * Creates a new instance of Visit for the current date
      */
     public Visit() {
-        this.date = LocalDateTime.now();
+        this.date = LocalDate.now();
     }
 
 
@@ -71,7 +72,7 @@ public class Visit extends BaseEntity {
      *
      * @return Value of property date.
      */
-    public LocalDateTime getDate() {
+    public LocalDate getDate() {
         return this.date;
     }
 
@@ -80,7 +81,7 @@ public class Visit extends BaseEntity {
      *
      * @param date New value of property date.
      */
-    public void setDate(LocalDateTime date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
