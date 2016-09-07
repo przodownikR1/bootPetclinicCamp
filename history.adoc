@@ -537,5 +537,53 @@ Exception evaluating SpringEL expression: "#dates.format(pet.birthDate.toDate(),
 
 === Cache
 
- 
+Dependency
+
+----
+<dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+            <version>2.10.2.2.21</version>
+        </dependency>
+----
+        
                                  
+Config
+
+----
+@EnableCaching
+@Configuration
+public class CacheConfig {
+    
+    @Bean
+    public CacheManager cacheManager(EhCacheManagerFactoryBean factory) {
+        return new EhCacheCacheManager(factory.getObject());
+}
+    
+    @Bean
+    public EhCacheManagerFactoryBean ehCacheManagerFactoryBean() {
+        EhCacheManagerFactoryBean factory = new EhCacheManagerFactoryBean();
+        factory.setCacheManagerName("EHCACHE");
+        factory.setConfigLocation(new ClassPathResource("ehcache.xml"));        
+        return factory;
+}
+}
+
+----
+    
+
+** Guava
+
+spring.cache.cache-names=foo,bar
+spring.cache.guava.spec=maximumSize=500,expireAfterAccess=600s
+
+
+** Coffeine
+
+spring.cache.cache-names=foo,bar
+spring.cache.caffeine.spec=maximumSize=500,expireAfterAccess=600s                              
+
+
+** JCache
+
+spring.cache.jcache.config=classpath:acme.xml                                 
