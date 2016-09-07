@@ -489,3 +489,12 @@ Exception evaluating SpringEL expression: "#dates.format(pet.birthDate.toDate(),
 !-- <dd th:text="${#dates.format(pet.birthDate.toDate(), 'yyyy-MM-dd')}">[birthdate yyyy-MM-dd]</dd> -->
 <dd th:text="${#temporals.format(pet.birthDate, 'dd/MM/yyyy')}">[birthdate yyyy-MM-dd]</dd>
 ----
+
+
+** Visit
+
+----
+ <!-- <td th:text="${#dates.format(visit.date.toDate(), 'yyyy-MM-dd')}">[date yyyy-MM-dd</td> -->
+ <td th:text="${#temporals.format(visit.date, 'dd/MM/yyyy')}">[date yyyy-MM-dd</td>
+----
+                                 

@@ -15,17 +15,17 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.4.0.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
-		 <webjars-bootstrap.version>2.3.0</webjars-bootstrap.version>
-        <webjars-jquery-ui.version>1.9.2</webjars-jquery-ui.version>
-        <webjars-jquery.version>1.9.0</webjars-jquery.version>
-        <dandelion.datatables.version>0.8.7</dandelion.datatables.version>
+		<webjars-bootstrap.version>2.3.0</webjars-bootstrap.version>
+		<webjars-jquery-ui.version>1.9.2</webjars-jquery-ui.version>
+		<webjars-jquery.version>1.9.0</webjars-jquery.version>
+		<dandelion.datatables.version>0.8.7</dandelion.datatables.version>
 	</properties>
 
 	<dependencies>
@@ -61,55 +61,62 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		
-		<dependency>
-        <groupId>org.springframework.boot</groupId>
-         <artifactId>spring-boot-starter-jdbc</artifactId>  
-       </dependency>
-       
-       <dependency>
-    <groupId>org.thymeleaf.extras</groupId>
-    <artifactId>thymeleaf-extras-java8time</artifactId>
-    <version>2.1.0.RELEASE</version>
-</dependency>
-		
-		
-		<dependency>
-          <groupId>com.rometools</groupId>
-          <artifactId>rome</artifactId>
-          <version>1.5.0</version>
-        </dependency>
-        
-		<dependency>
-		    <groupId>com.google.guava</groupId>
-		    <artifactId>guava</artifactId>
-		    <version>19.0</version>
-		</dependency>
-		
-		
-		<dependency>
-		    <groupId>org.projectlombok</groupId>
-		    <artifactId>lombok</artifactId>
-		    <version>1.16.10</version>
-		</dependency>
-		
-		<dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>bootstrap</artifactId>
-            <version>${webjars-bootstrap.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>jquery-ui</artifactId>
-            <version>${webjars-jquery-ui.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>jquery</artifactId>
-            <version>${webjars-jquery.version}</version>
-        </dependency>
 
-   
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-java8time</artifactId>
+			<version>2.1.0.RELEASE</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.rometools</groupId>
+			<artifactId>rome</artifactId>
+			<version>1.5.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>19.0</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.16.10</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.fasterxml.jackson.dataformat</groupId>
+		    <artifactId>jackson-dataformat-xml</artifactId>
+		    <version>2.8.2</version>
+		</dependency>
+		
+
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>bootstrap</artifactId>
+			<version>${webjars-bootstrap.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>jquery-ui</artifactId>
+			<version>${webjars-jquery-ui.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>jquery</artifactId>
+			<version>${webjars-jquery.version}</version>
+		</dependency>
+
+
 
 		<dependency>
 			<groupId>com.h2database</groupId>

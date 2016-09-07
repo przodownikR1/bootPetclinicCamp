@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import lombok.extern.slf4j.Slf4j;
 import pl.java.scalatech.model.Vets;
 import pl.java.scalatech.service.ClinicService;
 
@@ -29,6 +30,7 @@ import pl.java.scalatech.service.ClinicService;
  * @author Arjen Poutsma
  */
 @Controller
+@Slf4j
 public class VetController {
 
     private final ClinicService clinicService;
@@ -44,6 +46,7 @@ public class VetController {
         Vets vets = new Vets();
         vets.getVetList().addAll(this.clinicService.findVets());
         model.addAttribute("vets", vets);
+        log.info("ok 1!!!!!!!!!!!!!!!!!!!!!!!");
         return "vets/vetList";
     }
 

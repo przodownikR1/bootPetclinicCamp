@@ -21,7 +21,10 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.jmx.export.annotation.ManagedAttribute;
 import org.springframework.jmx.export.annotation.ManagedOperation;
 import org.springframework.jmx.export.annotation.ManagedResource;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Simple aspect that monitors call count and call invocation time. It uses JMX annotations and therefore can be
@@ -34,6 +37,8 @@ import org.springframework.util.StopWatch;
  */
 @ManagedResource("petclinic:type=CallMonitor")
 @Aspect
+@Component
+@Slf4j
 public class CallMonitoringAspect {
 
     private boolean enabled = true;
@@ -71,7 +76,7 @@ public class CallMonitoringAspect {
 
 
     @Around("within(@org.springframework.stereotype.Repository *)")
-    public Object invoke(ProceedingJoinPoint joinPoint) throws Throwable {
+    public Object invoke(ProceedingJoinPoint joinPoint) throws Throwable {        
         if (this.enabled) {
             StopWatch sw = new StopWatch(joinPoint.toShortString());
 
@@ -83,11 +88,11 @@ public class CallMonitoringAspect {
                 synchronized (this) {
                     this.callCount++;
                     this.accumulatedCallTime += sw.getTotalTimeMillis();
+                    log.info("call time : {} ms",sw.getTotalTimeMillis());
                 }
             }
-        } else {
-            return joinPoint.proceed();
         }
+        return joinPoint.proceed();
     }
 
 }
