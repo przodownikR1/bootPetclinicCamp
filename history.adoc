@@ -497,4 +497,45 @@ Exception evaluating SpringEL expression: "#dates.format(pet.birthDate.toDate(),
  <!-- <td th:text="${#dates.format(visit.date.toDate(), 'yyyy-MM-dd')}">[date yyyy-MM-dd</td> -->
  <td th:text="${#temporals.format(visit.date, 'dd/MM/yyyy')}">[date yyyy-MM-dd</td>
 ----
+
+=== ContentNegotiation problem with xml and atom 
+
+----
+@Override
+    public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+        HashMap<String, MediaType> mediaTypes = new HashMap<>();              
+        mediaTypes.put("xml", MediaType.APPLICATION_XML); 
+        mediaTypes.put("json", MediaType.APPLICATION_JSON);
+        mediaTypes.put("atom", MediaType.APPLICATION_ATOM_XML);
+        configurer.mediaTypes(mediaTypes).defaultContentType(MediaType.TEXT_HTML).favorParameter(false).favorPathExtension(true); 
+        super.configureContentNegotiation(configurer); 
+      }
+    
+/*    .parameterName("type")
+    .favorParameter(true)
+    .ignoreUnknownPathExtensions(false)
+    .ignoreAcceptHeader(false)
+*/
+    
+    @Autowired
+    private ThymeleafViewResolver thymeleafResolver;
+    
+    @Override
+    public void configureViewResolvers(ViewResolverRegistry registry) {
+        registry.viewResolver(this.thymeleafResolver);
+        registry.enableContentNegotiation(
+                new MappingJackson2XmlView(),
+                new MappingJackson2JsonView(),
+                new VetsAtomView()
+                );
+    }
+    
+----
+    
+
+=== Lombok
+
+=== Cache
+
+ 
                                  

@@ -16,7 +16,6 @@
 package pl.java.scalatech.model;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -32,10 +31,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Type;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import lombok.Data;
+import lombok.ToString;
 
 /**
  * Simple business object representing a pet.
@@ -46,6 +47,8 @@ import org.springframework.format.annotation.DateTimeFormat;
  */
 @Entity
 @Table(name = "pets")
+@ToString(callSuper=true)
+@Data
 public class Pet extends NamedEntity {
 
     @Column(name = "birth_date")
@@ -62,35 +65,6 @@ public class Pet extends NamedEntity {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pet", fetch = FetchType.EAGER)
     private Set<Visit> visits;
-
-
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public LocalDate getBirthDate() {
-        return this.birthDate;
-    }
-
-    public void setType(PetType type) {
-        this.type = type;
-    }
-
-    public PetType getType() {
-        return this.type;
-    }
-
-    protected void setOwner(Owner owner) {
-        this.owner = owner;
-    }
-
-    public Owner getOwner() {
-        return this.owner;
-    }
-
-    protected void setVisitsInternal(Set<Visit> visits) {
-        this.visits = visits;
-    }
 
     protected Set<Visit> getVisitsInternal() {
         if (this.visits == null) {
