@@ -1,5 +1,6 @@
 package pl.java.scalatech.web;
 
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -10,6 +11,7 @@ import pl.java.scalatech.service.ClinicService;
 @RestController
 @RequestMapping("/vetXml")
 @Slf4j
+@EnableScheduling
 public class VetXmlController {
 
     
@@ -27,4 +29,5 @@ public class VetXmlController {
         
         
     }
+   
 }
