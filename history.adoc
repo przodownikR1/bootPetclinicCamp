@@ -574,16 +574,24 @@ public class CacheConfig {
 
 ** Guava
 
+----
 spring.cache.cache-names=foo,bar
 spring.cache.guava.spec=maximumSize=500,expireAfterAccess=600s
+----
 
 
 ** Coffeine
 
+----
 spring.cache.cache-names=foo,bar
 spring.cache.caffeine.spec=maximumSize=500,expireAfterAccess=600s                              
+----
 
 
 ** JCache
 
+----
 spring.cache.jcache.config=classpath:acme.xml                                 
+----
+
+
